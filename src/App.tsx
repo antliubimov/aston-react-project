@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
+import MainPage from './pages/MainPage/MainPage';
 
 function App() {
   return (
     <div className="App">
+      <MainPage />
     </div>
   );
 }
