@@ -11,7 +11,6 @@ export const fetchMovies = () => async (dispatch: Dispatch) => {
       'https://www.omdbapi.com/?apikey=786d4402&s=day',
     );
     dispatch(movieSlice.actions.moviesFetchingSuccess(response.data.Search));
-    console.log(response.data);
   } catch (e: any) {
     dispatch(movieSlice.actions.moviesFetchingError(e.message));
   }
