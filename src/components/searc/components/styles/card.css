@@ -1,0 +1,9 @@
+.row {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 20px;
+  max-width: 350px;
+}
+.card-image {
+  max-width: 350px;
+}

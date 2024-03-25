@@ -1,0 +1,15 @@
+.films {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.center {
+  background-color: #000000;
+  min-height: calc(100vh - 70px - 10vh);
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+}

@@ -2,9 +2,10 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import MainPage from './pages/mainPage/MainPage';
+import MainPage from './pages/MainPage/MainPage';
 import Navibar from './components/navbar/Navibar';
 import Searc from './components/searc/Searc';
+import Footer from './components/footer/footer';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/mainPage" element={<MainPage />} />
         </Routes>
       </main>
+      <Footer />
     </BrowserRouter>
   );
 };
