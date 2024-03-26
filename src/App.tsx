@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import MainPage from './pages/MainPage/MainPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import MainPage from './pages/mainPage/MainPage';
+import Navibar from './components/navbar/Navibar';
+import Searc from './components/searc/Searc';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+    <BrowserRouter>
+      <Navibar />
+      <main>
+        <Routes>
+          <Route path="*" element={<Navigate to="/mainPage" />} />
+          <Route path="/mainPage" element={<MainPage />} />
+          <Route path="/searc" element={<Searc />} />
+          <Route path="/mainPage" element={<MainPage />} />
+          <Route path="/mainPage" element={<MainPage />} />
+          <Route path="/mainPage" element={<MainPage />} />
+          <Route path="/mainPage" element={<MainPage />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

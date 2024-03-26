@@ -4,13 +4,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface MovieState {
   movies: MovieType[];
   isLoading: boolean;
-  error: string;
+  errorCode: string | null;
 }
 
 const initialState: MovieState = {
   movies: [],
   isLoading: false,
-  error: '',
+  errorCode: null,
 };
 
 export const movieSlice = createSlice({
@@ -20,15 +20,15 @@ export const movieSlice = createSlice({
     moviesFetchingSuccess(state, action: PayloadAction<MovieType[]>) {
       state.movies = action.payload;
       state.isLoading = false;
-      state.error = '';
+      state.errorCode = null;
     },
     moviesFetching(state) {
       state.isLoading = true;
-      state.error = '';
+      state.errorCode = null;
     },
     moviesFetchingError(state, action: PayloadAction<string>) {
       state.isLoading = false;
-      state.error = action.payload;
+      state.errorCode = action.payload;
     },
   },
 });
