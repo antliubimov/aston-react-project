@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import RouterConfig from './routes/routerConfig';
 import { AuthContext } from './core/contexts';
-import { ISigninUser, IUsers } from './types/SignTypes/signTypes';
+import { SigninUser, Users } from './types/SignTypes/signTypes';
 import './assets/styles/App.css';
 
 type LayoutProps = {
@@ -10,10 +10,10 @@ type LayoutProps = {
 
 const AuthProvider = ({ children }: LayoutProps) => {
   const json = localStorage.getItem('user');
-  const currentUser: ISigninUser | null = json ? JSON.parse(json) : null;
+  const currentUser: SigninUser | null = json ? JSON.parse(json) : null;
   const [user, setUser] = useState(currentUser ? currentUser : null);
 
-  const signIn = (userData: ISigninUser) => {
+  const signIn = (userData: SigninUser) => {
     userData = {...userData, isSignIn: true};
     localStorage.setItem('user', JSON.stringify(userData));
     setUser({
@@ -28,17 +28,11 @@ const AuthProvider = ({ children }: LayoutProps) => {
     setUser(null);
   };
 
-  // const getAuthHeader = () => {
-  //   const userData = JSON.parse(localStorage.getItem('user'));
-  //   return userData?.token ? { Authorization: `Bearer ${userData.token}` } : {};
-  // };
-
   const value = useMemo(
     () => ({
       user,
       signIn,
       signOut,
-      // getAuthHeader,
     }),
     [user],
   );
@@ -50,7 +44,7 @@ const AuthProvider = ({ children }: LayoutProps) => {
   );
 };
 function App() {
-  const usersDB: IUsers = {
+  const usersDB: Users = {
     admin: {username: 'admin', password: 'admin'},
   };
 

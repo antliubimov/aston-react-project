@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 
-import { ISigninUser } from '../../types/SignTypes/signTypes';
+import { SigninUser } from '../../types/SignTypes/signTypes';
 
 interface IAuthContext {
-  user: ISigninUser | null;
-  signIn: (userData: ISigninUser) => void;
+  user: SigninUser | null;
+  signIn: (userData: SigninUser) => void;
   signOut: () => void;
 }
 

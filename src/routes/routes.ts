@@ -1,7 +1,8 @@
-export default {
-  mainPagePath: () => '/',
-  signinPagePath: () => '/signin',
-  signupPagePath: () => '/signup',
-  favoritesPagePath: () => '/favorites',
-  historyPagePath: () => '/history',
-};
+export enum ROUTES {
+  MAIN = '/',
+  SIGNIN = '/signin',
+  SIGNUP = '/signup',
+  FAVORITES = '/favorites',
+  HISTORY = '/history',
+  SEARCH = '/search',
+}
