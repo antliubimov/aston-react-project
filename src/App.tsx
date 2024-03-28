@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import RouterConfig from './routes/routerConfig';
 import { AuthContext } from './core/contexts';
-import { SigninUser, Users } from './types/SignTypes/signTypes';
+import { SigninUser, SignupUser, Users } from './types/SignTypes/signTypes';
 import './assets/styles/App.css';
+import { getLocalStorageItem } from './utils/getLocalStorageItem';
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 const AuthProvider = ({ children }: LayoutProps) => {
-  const json = localStorage.getItem('user');
-  const currentUser: SigninUser | null = json ? JSON.parse(json) : null;
+  const currentUser = getLocalStorageItem<SigninUser>('user');
   const [user, setUser] = useState(currentUser ? currentUser : null);
 
   const signIn = (userData: SigninUser) => {
@@ -28,11 +28,20 @@ const AuthProvider = ({ children }: LayoutProps) => {
     setUser(null);
   };
 
+  const signUp = (userData: SignupUser) => {
+    let usersDB = getLocalStorageItem<Users>('usersDB');
+    const { username, password } = userData;
+    const user: Users = { [username]: { username, password }};
+    usersDB = {...usersDB, ...user};
+    localStorage.setItem('usersDB', JSON.stringify(usersDB));
+  };
+
   const value = useMemo(
     () => ({
       user,
       signIn,
       signOut,
+      signUp,
     }),
     [user],
   );

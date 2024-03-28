@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Form } from 'react-bootstrap';
 import { SignInputProps } from '../types/SignTypes/signTypes';
 
@@ -12,8 +12,9 @@ export const SignInput = <T, >(props: SignInputProps<T>) => {
     errors,
     mRef,
   } = props;
+  const currentName = name as string;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     const currentData = {
       ...data,
@@ -21,9 +22,7 @@ export const SignInput = <T, >(props: SignInputProps<T>) => {
     }
 
     setData(currentData);
-  };
-
-  const currentName = name as string;
+  }, [data, setData]);
 
   return (
     <Form.Group className="form-floating mb-3">

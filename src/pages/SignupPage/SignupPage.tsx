@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import signupImg from '../../assets/images/signup.svg';
@@ -6,8 +6,9 @@ import { useAuth } from '../../core/hooks';
 import { ROUTES } from '../../routes/routes';
 import { SignForm } from '../../components/SignForm';
 import { SignInput } from '../../components/SignInput';
-import { Data, SigninUser, SignupUser } from '../../types/SignTypes/signTypes';
+import { Data, SigninUser, SignupUser, Users } from '../../types/SignTypes/signTypes';
 import { getLocalStorageItem } from '../../utils/getLocalStorageItem';
+import { SignupValidationSchema } from '../../features/SignupValidationSchema';
 
 class ValidationError extends Error {
   public path: string;
@@ -18,30 +19,14 @@ class ValidationError extends Error {
   }
 }
 
-const SignupSchema = yup.object().shape({
-  username: yup
-    .string()
-    .trim()
-    .required('Обязательное поле')
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов'),
-  password: yup
-    .string()
-    .trim()
-    .required('Обязательное поле')
-    .min(6, 'Не менее 6 символов'),
-  confirmPassword: yup
-    .string()
-    .test('confirmPassword', 'Пароли должны совпадать', (value, context) => value === context.parent.password),
-});
+const initialState: SignupUser = {
+  username: '',
+  password: '',
+  confirmPassword: '',
+};
 
-const SignupPage = () => {
-  const initialState: SignupUser = {
-    username: '',
-    password: '',
-    confirmPassword: '',
-  };
-  const { signIn } = useAuth();
+export const SignupPage = () => {
+  const { signIn, signUp } = useAuth();
   const [registrationFailed, setRegistrationFailed] = useState(false);
   const [signupData, setSignupData] = useState(initialState);
   const [errors, setErrors]: [Data, React.Dispatch<React.SetStateAction<Data>>] = useState({});
@@ -54,12 +39,12 @@ const SignupPage = () => {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     setRegistrationFailed(false);
     try {
-      await SignupSchema.validate(signupData, {abortEarly: false});
-      const usersDB = getLocalStorageItem('usersDB');
+      await SignupValidationSchema.validate(signupData, {abortEarly: false});
+      const usersDB = getLocalStorageItem<Users>('usersDB');
       if (!usersDB) {
         throw new Error('Users database not found!');
       } else if (usersDB?.[signupData.username]) {
@@ -70,6 +55,7 @@ const SignupPage = () => {
         password: signupData.password,
         isSignIn: false,
       }
+      signUp(signupData);
       signIn(data);
       navigate(ROUTES.MAIN);
     } catch (error) {
@@ -87,7 +73,7 @@ const SignupPage = () => {
         throw error;
       }
     }
-  };
+  }, [signupData, signUp, signIn, navigate]);
 
   return (
     <SignForm
@@ -127,5 +113,3 @@ const SignupPage = () => {
     </SignForm>
   );
 };
-
-export { SignupPage };

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { SyntheticEvent, memo } from 'react';
 import { Button, Form, Image } from 'react-bootstrap';
 
-interface SignFormProps {
+type SignFormProps = {
   title: string;
   imageSrc: string;
   btnName: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: SyntheticEvent<EventTarget>) => void;
   children: React.ReactNode;
 }
 
-export const SignForm = (props: SignFormProps) => {
+export const SignForm = memo((props: SignFormProps) => {
   const {
     title,
     imageSrc,
@@ -34,4 +34,6 @@ export const SignForm = (props: SignFormProps) => {
       </div>
     </main>
   );
-};
+});
+
+SignForm.displayName = 'SignForm';

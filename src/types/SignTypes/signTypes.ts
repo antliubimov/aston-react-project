@@ -21,7 +21,7 @@ export interface Users {
   [key: string]: User,
 }
 
-export interface SignInputProps<T> {
+export type SignInputProps<T> = {
   label: string;
   name: keyof T;
   type: string;

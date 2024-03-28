@@ -1,11 +1,12 @@
 import { createContext } from 'react';
 
-import { SigninUser } from '../../types/SignTypes/signTypes';
+import { SigninUser, SignupUser } from '../../types/SignTypes/signTypes';
 
-interface IAuthContext {
+interface AuthContext {
   user: SigninUser | null;
   signIn: (userData: SigninUser) => void;
   signOut: () => void;
+  signUp: (userData: SignupUser) => void;
 }
 
-export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
+export const AuthContext = createContext<AuthContext>({} as AuthContext);
