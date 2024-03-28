@@ -3,29 +3,30 @@ import logo from '../../images/logo.jpg';
 import { Navbar, Nav } from 'react-bootstrap';
 import './NavibarStyles.css';
 import { NavLink } from 'react-router-dom';
+import { FAVORITE_ROUTE, MAIN_ROUTE, SEARCH_ROUTE } from '../../utils/consts';
 
-const Navibar = () => {
+export const Navibar = () => {
   return (
     <Navbar expand="sm" bg="dark" variant="dark" className="">
       <Nav className="mr-auto nav-link ">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
-            <NavLink to="/mainPage" className="nav-link">
+            <NavLink to={MAIN_ROUTE} className="nav-link">
               <img src={logo} alt="logo" className="logo" />
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/mainPage" className="nav-link">
+            <NavLink to={MAIN_ROUTE} className="nav-link">
               Главная
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/searc" className="nav-link">
+            <NavLink to={SEARCH_ROUTE} className="nav-link">
               Поиск
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="" className="nav-link">
+            <NavLink to={FAVORITE_ROUTE} className="nav-link">
               История
             </NavLink>
           </li>
@@ -56,5 +57,3 @@ const Navibar = () => {
     </Navbar>
   );
 };
-
-export default Navibar;

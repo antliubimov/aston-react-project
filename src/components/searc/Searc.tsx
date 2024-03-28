@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Searc = () => {
+export const Searc = () => {
   return <div>SEARCH</div>;
 };
-
-export default Searc;
