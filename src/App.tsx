@@ -4,9 +4,15 @@ import { AuthContext } from './core/contexts';
 import { SigninUser, SignupUser, Users } from './types/SignTypes/signTypes';
 import './assets/styles/App.css';
 import { getLocalStorageItem } from './utils/getLocalStorageItem';
+import MainPage from './pages/MainPage/MainPage';
+import Navibar from './components/navbar/Navibar';
 
 type LayoutProps = {
   children: React.ReactNode;
+};
+
+const usersDB: Users = {
+  admin: {username: 'admin', password: 'admin'},
 };
 
 const AuthProvider = ({ children }: LayoutProps) => {
@@ -52,11 +58,8 @@ const AuthProvider = ({ children }: LayoutProps) => {
     </AuthContext.Provider>
   );
 };
-function App() {
-  const usersDB: Users = {
-    admin: {username: 'admin', password: 'admin'},
-  };
 
+function App() {
   useEffect(() => {
     localStorage.setItem('usersDB', JSON.stringify(usersDB));
   }, []);
