@@ -6,3 +6,4 @@ export enum ROUTES {
   HISTORY = '/history',
   SEARCH = '/search',
 }
+export const API_URL = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}`;

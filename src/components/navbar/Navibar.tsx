@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { ROUTES } from '../../routes/routes';
-import logo from '../../images/logo.jpg';
+import logo from '../../assets/images/logo.jpg';
 import './NavibarStyles.css';
 
-const Navibar = () => {
+export const Navibar = () => {
   return (
     <Navbar expand="sm" bg="dark" variant="dark" className="">
       <Nav className="mr-auto nav-link ">
@@ -57,5 +57,3 @@ const Navibar = () => {
     </Navbar>
   );
 };
-
-export default Navibar;
