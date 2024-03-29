@@ -4,8 +4,6 @@ import { AuthContext } from './core/contexts';
 import { SigninUser, SignupUser, Users } from './types/SignTypes/signTypes';
 import './assets/styles/App.css';
 import { getLocalStorageItem } from './utils/getLocalStorageItem';
-import MainPage from './pages/MainPage/MainPage';
-import Navibar from './components/navbar/Navibar';
 
 type LayoutProps = {
   children: React.ReactNode;
