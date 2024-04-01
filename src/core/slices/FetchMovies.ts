@@ -1,17 +1,14 @@
 import { Dispatch } from 'redux';
 import { FetchMoviesResponse } from '../../types/ReduxTypes/MovieType';
 import { movieSlice } from './MovieSlice';
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { API_URL } from '../../routes/routes';
 
 export const fetchMovies = () => async (dispatch: Dispatch) => {
   try {
     dispatch(movieSlice.actions.moviesFetching());
-    const response = await axios.get<FetchMoviesResponse>(
-      'https://www.omdbapi.com/?apikey=786d4402&s=day',
-    );
+    const response = await axios.get<FetchMoviesResponse>(`${API_URL}&s=day`);
     dispatch(movieSlice.actions.moviesFetchingSuccess(response.data.Search));
-    console.log(response.data);
   } catch (e: any) {
     dispatch(movieSlice.actions.moviesFetchingError(e.message));
   }

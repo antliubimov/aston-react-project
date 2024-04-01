@@ -1,13 +1,72 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MainPage from './pages/MainPage/MainPage';
+import React, { useEffect, useState, useMemo } from 'react';
+import RouterConfig from './routes/routerConfig';
+import { AuthContext } from './core/contexts';
+import { SigninUser, SignupUser, Users } from './types/SignTypes/signTypes';
+import './assets/styles/App.css';
+import { getLocalStorageItem } from './utils/getLocalStorageItem';
+
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+const initialUsersDB: Users = {
+  admin: { username: 'admin', password: 'admin' },
+};
+
+const AuthProvider = ({ children }: LayoutProps) => {
+  const currentUser = getLocalStorageItem<SigninUser>('user');
+  const [user, setUser] = useState(currentUser ? currentUser : null);
+
+  const signIn = (userData: SigninUser) => {
+    userData = { ...userData, isSignIn: true };
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser({
+      username: userData.username,
+      password: userData.password,
+      isSignIn: true,
+    });
+  };
+
+  const signOut = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
+  const signUp = (userData: SignupUser) => {
+    let usersDB = getLocalStorageItem<Users>('usersDB');
+    const { username, password } = userData;
+    const user: Users = { [username]: { username, password } };
+    usersDB = { ...usersDB, ...user };
+    localStorage.setItem('usersDB', JSON.stringify(usersDB));
+  };
+
+  const value = useMemo(
+    () => ({
+      user,
+      signIn,
+      signOut,
+      signUp,
+    }),
+    [user],
+  );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
 function App() {
+  useEffect(() => {
+    const usersDB = getLocalStorageItem<Users>('usersDB');
+    if (!usersDB) {
+      localStorage.setItem('usersDB', JSON.stringify(initialUsersDB));
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <MainPage />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <RouterConfig />
+      </div>
+    </AuthProvider>
   );
 }
 
