@@ -1,27 +1,38 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { MovieType } from '../../types/ReduxTypes/MovieType';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import './SliderSwiperStyles.css';
+import { Modal } from '../Modal/Modal';
 
-interface MoviesProps {
+interface SliderSwiperProps {
   movies: MovieType[];
+  activeMovie: MovieType;
+  onMovieClick: (movie: MovieType) => void;
+  isModalOpen: boolean;
+  handleModalClose: () => void;
 }
 
-export const SliderSwiper = ({ movies }: MoviesProps) => {
+export const SliderSwiper = ({
+  movies,
+  activeMovie,
+  onMovieClick,
+  isModalOpen,
+  handleModalClose,
+}: SliderSwiperProps) => {
   return (
-    <div className="carousel">
+    <div className="slider">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
-        slidesPerView={3}
-        slidesPerGroup={3}
-        spaceBetween={-50}
+        slidesPerView={'auto'}
+        slidesPerGroup={1}
+        spaceBetween={20}
         autoplay={{
-          delay: 1000,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         speed={800}
@@ -29,17 +40,33 @@ export const SliderSwiper = ({ movies }: MoviesProps) => {
           clickable: true,
         }}
         navigation={true}
-        loop={true}
         observer={true}
+        // loop={true}
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.imdbID}>
             <a>
-              <img alt="img" src={movie.Poster} className="image" />
+              <img
+                alt="img"
+                src={movie.Poster}
+                className="image"
+                onClick={() => onMovieClick(movie)}
+              />
             </a>
           </SwiperSlide>
         ))}
       </Swiper>
+      <Modal visible={isModalOpen} setVisible={handleModalClose}>
+        <div>
+          <div>
+            <img alt="img" src={activeMovie.Poster} className="image" />
+          </div>
+          <div>
+            <p>Название: {activeMovie.Title}</p>
+            <p>Год создания: {activeMovie.Year}</p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
