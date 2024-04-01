@@ -10,7 +10,7 @@ type LayoutProps = {
 };
 
 const usersDB: Users = {
-  admin: {username: 'admin', password: 'admin'},
+  admin: { username: 'admin', password: 'admin' },
 };
 
 const AuthProvider = ({ children }: LayoutProps) => {
@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: LayoutProps) => {
   const [user, setUser] = useState(currentUser ? currentUser : null);
 
   const signIn = (userData: SigninUser) => {
-    userData = {...userData, isSignIn: true};
+    userData = { ...userData, isSignIn: true };
     localStorage.setItem('user', JSON.stringify(userData));
     setUser({
       username: userData.username,
@@ -35,8 +35,8 @@ const AuthProvider = ({ children }: LayoutProps) => {
   const signUp = (userData: SignupUser) => {
     let usersDB = getLocalStorageItem<Users>('usersDB');
     const { username, password } = userData;
-    const user: Users = { [username]: { username, password }};
-    usersDB = {...usersDB, ...user};
+    const user: Users = { [username]: { username, password } };
+    usersDB = { ...usersDB, ...user };
     localStorage.setItem('usersDB', JSON.stringify(usersDB));
   };
 
@@ -50,16 +50,15 @@ const AuthProvider = ({ children }: LayoutProps) => {
     [user],
   );
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 function App() {
   useEffect(() => {
-    localStorage.setItem('usersDB', JSON.stringify(usersDB));
+    const usersDB = getLocalStorageItem<Users>('usersDB');
+    if (!usersDB) {
+      localStorage.setItem('usersDB', JSON.stringify(usersDB));
+    }
   }, []);
 
   return (

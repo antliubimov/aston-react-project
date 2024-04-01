@@ -2,7 +2,7 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ROUTES } from './routes';
 import { LayoutComponent } from '../components/LayoutComponent';
-import MainPage from '../pages/MainPage/MainPage';
+import { MainPage } from '../pages/MainPage/MainPage';
 import { SigninPage } from '../pages/SinginPage/SigninPage';
 import { SignupPage } from '../pages/SignupPage/SignupPage';
 import { SearchPage } from '../pages/SearchPage/SearchPage';
@@ -49,9 +49,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-    ]
+    ],
   },
-
 ]);
 
 const RouterConfig = () => <RouterProvider router={router} />;

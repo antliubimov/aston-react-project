@@ -3,12 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { ROUTES } from '../../routes/routes';
 import { useAuth } from '../../core/hooks';
-import logo from '../../images/logo.jpg';
 import './NavibarStyles.css';
+import logo from '../../assets/images/logo.jpg';
 
-const Navibar = () => {
+export const Navibar = () => {
   const { signOut, user } = useAuth();
-
   return (
     <Navbar expand="sm" bg="dark" variant="dark" className="">
       <Nav className="mr-auto nav-link justify-content-around">
@@ -75,5 +74,3 @@ const Navibar = () => {
     </Navbar>
   );
 };
-
-export default Navibar;
