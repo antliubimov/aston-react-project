@@ -7,8 +7,9 @@ import { ROUTES } from '../../routes/routes';
 import { SignForm } from '../../components/SignForm';
 import { SignInput } from '../../components/SignInput';
 import { Data, SigninUser, SignupUser, Users } from '../../types/SignTypes/signTypes';
-import { getLocalStorageItem } from '../../utils/getLocalStorageItem';
+import { getLocalStorageItem } from '../../utils/helpers/getLocalStorageItem';
 import { SignupValidationSchema } from '../../features/SignupValidationSchema';
+import { USERS_DB } from '../../utils/constants/constants';
 
 class ValidationError extends Error {
   public path: string;
@@ -44,7 +45,7 @@ export const SignupPage = () => {
     setRegistrationFailed(false);
     try {
       await SignupValidationSchema.validate(signupData, {abortEarly: false});
-      const usersDB = getLocalStorageItem<Users>('usersDB');
+      const usersDB = getLocalStorageItem<Users>(USERS_DB);
       if (!usersDB) {
         throw new Error('Users database not found!');
       } else if (usersDB?.[signupData.username]) {
