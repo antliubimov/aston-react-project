@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MovieType } from '../../types/ReduxTypes/MovieType';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './SliderSwiperStyles.css';
-import { SliderSwiper } from './SliderSwiper';
+import { MemoizedSliderSwiper } from './SliderSwiper';
+import { historyLSKey } from '../../utils/constants';
 
 interface SliderSwiperHOCProps {
   movies: MovieType[];
@@ -14,11 +15,7 @@ export const SliderSwiperHOC = ({ movies }: SliderSwiperHOCProps) => {
   const [modal, setModal] = useState(false);
   const [activeMovie, setactiveMovie] = useState<MovieType>({} as MovieType);
 
-  const handleMovieClick = (movie: MovieType) => {
-    setactiveMovie(movie);
-    saveToLocalStorage(movie);
-    setModal(true);
-  };
+  const handleModalClose = () => setModal(false);
 
   const saveToLocalStorage = (film: MovieType) => {
     let historyMoviesArray: MovieType[] = [];
@@ -39,13 +36,19 @@ export const SliderSwiperHOC = ({ movies }: SliderSwiperHOCProps) => {
     localStorage.setItem('moviesHistory', JSON.stringify(historyMoviesArray));
   };
 
+  const handleMovieClick = useCallback((movie: MovieType) => {
+    setactiveMovie(movie);
+    saveToLocalStorage(movie);
+    setModal(true);
+  }, []);
+
   return (
-    <SliderSwiper
+    <MemoizedSliderSwiper
       activeMovie={activeMovie}
       movies={movies}
       onMovieClick={handleMovieClick}
       isModalOpen={modal}
-      handleModalClose={() => setModal(false)}
+      handleModalClose={handleModalClose}
     />
   );
 };

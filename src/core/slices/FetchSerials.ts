@@ -11,7 +11,7 @@ export const fetchSerials = () => async (dispatch: Dispatch) => {
     dispatch(serialsSlice.actions.serialsFetching());
 
     const response = await axios.get<FetchMoviesResponse>(
-      `${API_URL}&s=sherlock`,
+      `${API_URL}&s=who&type=series`,
     );
 
     dispatch(serialsSlice.actions.serialsFetchingSuccess(response.data.Search));
