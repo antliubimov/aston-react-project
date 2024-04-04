@@ -1,21 +1,28 @@
 import { Dispatch } from 'redux';
 import { FetchMoviesResponse } from '../../types/ReduxTypes/MovieType';
-import { serialsSlice } from './SerialsSlice';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { movieSlice } from './MovieSlice';
 import axios from 'axios';
 import { API_URL } from '../../routes/routes';
-import { log } from 'console';
 
-export const fetchSerials = () => async (dispatch: Dispatch) => {
+export const fetchMovies = () => async (dispatch: Dispatch) => {
   try {
-    dispatch(serialsSlice.actions.serialsFetching());
+    //   const urlsToFetch = [`${API_URL}&s=day&page=1`, `${API_URL}&s=day&page=2`];
 
+    //   const fetchPromises = urlsToFetch.map((url) =>
+    //   fetch(url).then((response) => response.json()),
+    // );
+
+    //  Promise.all(fetchPromises).then((responses) => {
+    //   const responseData = responses.map((response) => response);
+    //   console.log(responseData);
+    //     });
+
+    dispatch(movieSlice.actions.moviesFetching());
     const response = await axios.get<FetchMoviesResponse>(
-      `${API_URL}&s=who&type=series`,
+      `${API_URL}&s=day&page=2`,
     );
-
-    dispatch(serialsSlice.actions.serialsFetchingSuccess(response.data.Search));
+    dispatch(movieSlice.actions.moviesFetchingSuccess(response.data.Search));
   } catch (e: any) {
-    dispatch(serialsSlice.actions.serialsFetchingError(e.message));
+    dispatch(movieSlice.actions.moviesFetchingError(e.message));
   }
 };

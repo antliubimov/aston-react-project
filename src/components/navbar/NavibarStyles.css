@@ -4,6 +4,8 @@
 .navbar-nav {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid #656565;
+  background-color: black;
 }
 .logo {
   width: 200px;
@@ -24,4 +26,6 @@ button.btn-outline-warning {
 }
 ul.navbar-nav.me-auto.mb-2.mb-lg-0 {
   margin-bottom: 0 !important;
+}
+.bg-dark {
 }

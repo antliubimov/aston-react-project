@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { memo } from 'react';
+=======
+import React, { useEffect } from 'react';
+>>>>>>> develop
 import { MovieType } from '../../types/ReduxTypes/MovieType';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
@@ -8,15 +12,25 @@ import 'swiper/css/navigation';
 import './SliderSwiperStyles.css';
 import { Modal } from '../Modal/Modal';
 
+<<<<<<< HEAD
 type SliderSwiperProps = {
+=======
+interface SliderSwiperProps {
+>>>>>>> develop
   movies: MovieType[];
   activeMovie: MovieType;
   onMovieClick: (movie: MovieType) => void;
   isModalOpen: boolean;
   handleModalClose: () => void;
+<<<<<<< HEAD
 };
 
 const SliderSwiper = ({
+=======
+}
+
+export const SliderSwiper = ({
+>>>>>>> develop
   movies,
   activeMovie,
   onMovieClick,
@@ -41,12 +55,20 @@ const SliderSwiper = ({
         }}
         navigation={true}
         observer={true}
+<<<<<<< HEAD
+=======
+        // loop={true}
+>>>>>>> develop
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.imdbID}>
             <a>
               <img
+<<<<<<< HEAD
                 alt="poster"
+=======
+                alt="img"
+>>>>>>> develop
                 src={movie.Poster}
                 className="image"
                 onClick={() => onMovieClick(movie)}
@@ -69,5 +91,8 @@ const SliderSwiper = ({
     </div>
   );
 };
+<<<<<<< HEAD
 
 export const MemoizedSliderSwiper = memo(SliderSwiper);
+=======
+>>>>>>> develop
