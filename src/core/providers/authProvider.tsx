@@ -1,6 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { AuthContext } from '../contexts';
-import { getLocalStorageItem } from '../../utils/helpers/getLocalStorageItem';
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from '../../utils/helpers/localStorageFns';
 import { SigninUser, SignupUser, Users } from '../../types/SignTypes/signTypes';
 import { CURRENT_USER, USERS_DB } from '../../utils/constants/constants';
 
@@ -14,7 +18,7 @@ export const AuthProvider = ({ children }: LayoutProps) => {
 
   const signIn = (userData: SigninUser) => {
     userData = { ...userData, isSignIn: true };
-    localStorage.setItem('user', JSON.stringify(userData));
+    setLocalStorageItem(CURRENT_USER, userData);
     setUser({
       username: userData.username,
       password: userData.password,
@@ -23,7 +27,7 @@ export const AuthProvider = ({ children }: LayoutProps) => {
   };
 
   const signOut = () => {
-    localStorage.removeItem(CURRENT_USER);
+    removeLocalStorageItem(CURRENT_USER);
     setUser(null);
   };
 
@@ -32,7 +36,7 @@ export const AuthProvider = ({ children }: LayoutProps) => {
     const { username, password } = userData;
     const user: Users = { [username]: { username, password } };
     usersDB = { ...usersDB, ...user };
-    localStorage.setItem(USERS_DB, JSON.stringify(usersDB));
+    setLocalStorageItem(USERS_DB, usersDB);
   };
 
   const value = useMemo(
