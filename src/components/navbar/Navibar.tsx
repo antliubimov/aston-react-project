@@ -9,7 +9,7 @@ import logo from '../../assets/images/logo.jpg';
 export const Navibar = () => {
   const { signOut, user } = useAuth();
   return (
-    <Navbar expand="sm" bg="dark" variant="dark" className="">
+    <Navbar expand="sm" bg="dark" variant="dark">
       <Nav className="mr-auto nav-link justify-content-around">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
@@ -43,7 +43,7 @@ export const Navibar = () => {
           )}
         </ul>
         <input
-          className="form-control me-2 input"
+          className="form-control me-2"
           type="search"
           placeholder="Поиск"
           aria-label="Search"
@@ -62,12 +62,13 @@ export const Navibar = () => {
                 </NavLink>
               </li>
             </>
-            ) : (
+          ) : (
             <li className="nav-item">
-              <Button onClick={signOut} variant="outline-warning">Выйти</Button>
+              <Button onClick={signOut} variant="outline-warning">
+                Выйти
+              </Button>
             </li>
-            )
-          }
+          )}
         </ul>
         <form className="d-flex"></form>
       </Nav>

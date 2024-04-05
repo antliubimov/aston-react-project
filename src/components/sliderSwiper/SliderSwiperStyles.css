@@ -1,24 +1,29 @@
-.carousel {
+.slider {
   display: flex;
   justify-content: start;
 }
 .image {
   width: 250px;
   height: 380px;
-  margin-bottom: 20px;
   padding: 2px;
   border: 1px solid white;
   border-radius: 10px;
 }
 .swiper {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
+}
+.mySwiper {
+  margin-left: 25px;
+  margin-right: 25px;
 }
 .swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
   object-fit: cover;
+  margin-bottom: 20px;
+  width: auto;
 }
 .swiper-button-next:after,
 .swiper-button-prev:after {
