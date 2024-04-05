@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Data, SigninUser, Users } from '../../types/SignTypes/signTypes';
 import { ROUTES } from '../../routes/routes';
 import { useAuth } from '../../core/hooks';
-import signinImg from '../../assets/images/signin.svg';
-import { getLocalStorageItem } from '../../utils/getLocalStorageItem';
+import { getLocalStorageItem } from '../../utils/helpers/getLocalStorageItem';
 import { SignInput } from '../../components/SignInput';
 import { SignForm } from '../../components/SignForm';
+import { USERS_DB } from '../../utils/constants/constants';
+import signinImg from '../../assets/images/signin.svg';
 
 const initialState: SigninUser = {
   username: '',
@@ -35,7 +36,7 @@ export const SigninPage = () => {
   const handleSubmit = useCallback((e: SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     setIsAuthFailed(false);
-    const usersDB = getLocalStorageItem<Users>('usersDB');
+    const usersDB = getLocalStorageItem<Users>(USERS_DB);
     if (!usersDB) {
       throw new Error('Users database not found!');
     } else if (!usersDB?.[signinData.username] || usersDB?.[signinData.username]?.password !== signinData.password) {
