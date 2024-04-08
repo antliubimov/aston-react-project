@@ -4,12 +4,11 @@ import telegramImg from '../assets/images/telegram.svg';
 
 type TelegramButtonProps = {
   id: string;
-  name: string;
 };
 
-const getTelegramURL = ({ id, name }: TelegramButtonProps) => {
-  const url = window.location.href;
-  return `https://t.me/share/url?url=${encodeURIComponent(url)}/${id}&text=${encodeURIComponent(name)}`;
+const getTelegramURL = ({ id }: TelegramButtonProps) => {
+  const url = `www.imdb.com/title/`;
+  return `https://t.me/share/url?url=${encodeURIComponent(url)}${id}`;
 };
 
 export const TelegramButton = (props: TelegramButtonProps) => {
@@ -19,7 +18,7 @@ export const TelegramButton = (props: TelegramButtonProps) => {
   }, [props]);
 
   return (
-    <Button onClick={handleClick} variant="outline-warning">
+    <Button onClick={handleClick} variant="outline-warning" className="mb-2">
       <Image src={telegramImg} />
       Поделиться
     </Button>

@@ -5,9 +5,17 @@ export interface FetchMoviesResponse {
 }
 
 export interface MovieType {
-  Title: 'string';
-  Year: 'string';
-  imdbID: 'string';
-  Type: 'string';
-  Poster: 'string';
+  Title: string;
+  Year: string;
+  imdbID: string;
+  Type: string;
+  Poster: string;
 }
+
+export type FavoriteType = MovieType & {
+  userId: string;
+};
+
+export type FavoriteState = {
+  favorites: FavoriteType[];
+};

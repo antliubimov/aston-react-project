@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { FeatureFlagContext } from '../contexts';
+import { FeatureFlagContext } from '../contexts/';
 import { useGetFeatureFlagQuery } from '../api/featureFlagApi';
 import { FeatureFlag } from '../../types/contextTypes/contextTypes';
 
