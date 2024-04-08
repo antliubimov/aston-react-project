@@ -5,11 +5,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './SliderSwiperStyles.css';
 import { MemoizedSliderSwiper } from './SliderSwiper';
-import { historyLSKey } from '../../utils/constants';
+import { HISTORY_KEY } from '../../utils/constants';
 
-interface SliderSwiperHOCProps {
+type SliderSwiperHOCProps = {
   movies: MovieType[];
-}
+};
 
 export const SliderSwiperHOC = ({ movies }: SliderSwiperHOCProps) => {
   const [modal, setModal] = useState(false);
@@ -19,10 +19,10 @@ export const SliderSwiperHOC = ({ movies }: SliderSwiperHOCProps) => {
 
   const saveToLocalStorage = (film: MovieType) => {
     let historyMoviesArray: MovieType[] = [];
-    const moviesFromLS = localStorage.getItem('moviesHistory');
+    const moviesFromLS = localStorage.getItem(HISTORY_KEY);
     if (!moviesFromLS) {
       historyMoviesArray.push(film);
-      localStorage.setItem('moviesHistory', JSON.stringify(historyMoviesArray));
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(historyMoviesArray));
       return;
     }
     const parsedMovies: MovieType[] = JSON.parse(moviesFromLS);
@@ -33,7 +33,7 @@ export const SliderSwiperHOC = ({ movies }: SliderSwiperHOCProps) => {
       return;
     }
     historyMoviesArray = [...parsedMovies, film];
-    localStorage.setItem('moviesHistory', JSON.stringify(historyMoviesArray));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(historyMoviesArray));
   };
 
   const handleMovieClick = useCallback((movie: MovieType) => {

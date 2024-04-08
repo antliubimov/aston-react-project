@@ -1,1 +1,1 @@
-export const historyLSKey = 'moviesHistory';
+export const HISTORY_KEY = 'moviesHistory';
