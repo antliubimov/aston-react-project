@@ -1,7 +1,8 @@
 export interface FetchMoviesResponse {
-  Response: 'string';
+  Response: string;
   Search: [];
-  totalResults: 'string';
+  totalResults: string;
+  Error?: string;
 }
 
 export interface MovieType {

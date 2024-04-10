@@ -44,25 +44,23 @@ const SliderSwiper = ({
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.imdbID}>
-            <a>
-              <img
-                alt="poster"
-                src={movie.Poster}
-                className="image"
-                onClick={() => onMovieClick(movie)}
-              />
-            </a>
+            <img
+              alt="poster"
+              src={movie.Poster}
+              className="image slider_image"
+              onClick={() => onMovieClick(movie)}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
       <Modal visible={isModalOpen} setVisible={handleModalClose}>
         <div>
           <div>
-            <img alt="img" src={activeMovie.Poster} className="image" />
+            <img alt="poster" src={activeMovie.Poster} className="image" />
           </div>
           <div>
             <p>Название: {activeMovie.Title}</p>
-            <p>Год создания: {activeMovie.Year}</p>
+            <p>Год: {activeMovie.Year}</p>
           </div>
         </div>
       </Modal>
