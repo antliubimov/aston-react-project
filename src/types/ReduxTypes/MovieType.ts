@@ -1,7 +1,8 @@
 export interface FetchMoviesResponse {
-  Response: 'string';
+  Response: string;
   Search: [];
-  totalResults: 'string';
+  totalResults: string;
+  Error?: string;
 }
 
 export interface MovieType {
@@ -19,3 +20,8 @@ export type FavoriteType = MovieType & {
 export type FavoriteState = {
   favorites: FavoriteType[];
 };
+
+export type SearchState = {
+  searchItems: MovieType[];
+  loading: boolean;
+}
