@@ -12,3 +12,11 @@ export interface MovieType {
   Type: string;
   Poster: string;
 }
+
+export type FavoriteType = MovieType & {
+  userId: string;
+};
+
+export type FavoriteState = {
+  favorites: FavoriteType[];
+};
