@@ -84,7 +84,7 @@ export const SearchPage = () => {
       </SearchForm>
       {searchItems.length > 0 && (
         <ListGroup as="ul" className="d-flex flex-row flex-wrap gap-4">
-          {searchItems.map((movie) => {
+          {searchItems.map((movie: MovieType) => {
             return (
               <ListGroup.Item as="li" key={movie.imdbID} className="col-3 mb-3">
                 <SearchCard movie={movie} handleAdd={handleAddFavorite} />
