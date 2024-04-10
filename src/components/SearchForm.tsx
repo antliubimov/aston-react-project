@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, memo } from 'react';
-import { Button, Form, Image } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 type SearchFormProps = {
   title: string;

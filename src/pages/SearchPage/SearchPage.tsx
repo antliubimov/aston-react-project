@@ -5,19 +5,18 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../core/hooks/hooks';
 import { Search, Film } from '../../types/SearchTypes/searchTypes';
-import { SearchInput } from './SearchInput';
-import { SearchForm } from './SearchForm';
+import { SearchInput } from '../../components/SearchInput';
+import { SearchForm } from '../../components/SearchForm';
 import './SearchPageStyles.css';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { fetchMovies } from '../../core/slices/searchSlice';
+import { clearSearchItems, fetchMovies } from '../../core/slices/searchSlice';
 import { MovieType } from '../../types/ReduxTypes/MovieType';
 import { addFavorite } from '../../core/slices/favoritesSlice';
 import { useAuth } from '../../core/hooks';
 import { SearchCard } from '../../components/SearchCard';
-
-// в работе
 
 const initialState: Search = {
   title: '',
@@ -33,19 +32,35 @@ export const SearchPage = () => {
   const [SearchData, setSearchData] = useState<Search>(initialState);
   const filmNameRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { searchItems, loading } = useAppSelector((state) => state.search);
+  const { searchItems } = useAppSelector((state) => state.search);
   const { user } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (filmNameRef.current) {
       filmNameRef.current.focus();
+    }
+    const title = searchParams.get('movie');
+    const year = searchParams.get('year');
+    let searchString = '';
+    if (title && year) {
+      searchString = `${title}&y=${year}`;
+    } else if (title) {
+      searchString = title;
+    }
+    if (searchString) {
+      dispatch(fetchMovies(searchString));
+    } else {
+      dispatch(clearSearchItems());
     }
   }, []);
 
   const handleSubmit = useCallback(
     (e: SyntheticEvent<EventTarget>) => {
       e.preventDefault();
-      const searchString = `${SearchData.title}&y=${SearchData.year}`;
+      const { title, year } = SearchData;
+      setSearchParams({ movie: title, year: year });
+      const searchString = year ? `${title}&y=${year}` : `${title}`;
       dispatch(fetchMovies(searchString));
     },
     [SearchData, searchItems, fetchMovies],

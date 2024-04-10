@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Form } from 'react-bootstrap';
-import { SearchInputProps } from '../../types/SearchTypes/searchTypes';
+import { SearchInputProps } from '../types/SearchTypes/searchTypes';
 
 export const SearchInput = <T,>(props: SearchInputProps<T>) => {
   const {
