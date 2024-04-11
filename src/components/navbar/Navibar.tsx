@@ -5,11 +5,12 @@ import { ROUTES } from '../../routes/routes';
 import { useAuth } from '../../core/hooks';
 import './NavibarStyles.css';
 import logo from '../../assets/images/logo.jpg';
+import { NavbarInput } from '../navbarInput/NavbarInput';
 
 export const Navibar = () => {
   const { signOut, user } = useAuth();
   return (
-    <Navbar expand="sm" bg="dark" variant="dark" className="">
+    <Navbar expand="sm" bg="dark" variant="dark">
       <Nav className="mr-auto nav-link justify-content-around">
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           <li className="nav-item">
@@ -39,16 +40,13 @@ export const Navibar = () => {
                   Избранное
                 </NavLink>
               </li>
+              <li>
+                <NavbarInput />
+              </li>
             </>
           )}
         </ul>
-        <input
-          className="form-control me-2 input"
-          type="search"
-          placeholder="Поиск"
-          aria-label="Search"
-        />
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0 authorization">
           {!user ? (
             <>
               <li className="nav-item">
@@ -62,12 +60,13 @@ export const Navibar = () => {
                 </NavLink>
               </li>
             </>
-            ) : (
+          ) : (
             <li className="nav-item">
-              <Button onClick={signOut} variant="outline-warning">Выйти</Button>
+              <Button onClick={signOut} variant="outline-warning">
+                Выйти
+              </Button>
             </li>
-            )
-          }
+          )}
         </ul>
         <form className="d-flex"></form>
       </Nav>

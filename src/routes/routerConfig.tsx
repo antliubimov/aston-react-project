@@ -1,15 +1,50 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ROUTES } from './routes';
 import { LayoutComponent } from '../components/LayoutComponent';
-import { MainPage } from '../pages/MainPage/MainPage';
-import { SigninPage } from '../pages/SinginPage/SigninPage';
-import { SignupPage } from '../pages/SignupPage/SignupPage';
-import { SearchPage } from '../pages/SearchPage/SearchPage';
-import { NotFoundPage } from '../pages/NotFoundPage/NotFoundPage';
-import { FavoritesPage } from '../pages/FavoritesPage/FavoritesPage';
-import { HistoryPage } from '../pages/HistoryPage/HistoryPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
+
+const MainPage = lazy(() =>
+  import('../pages/MainPage/MainPage').then(({ MainPage }) => ({
+    default: MainPage,
+  })),
+);
+
+const SigninPage = lazy(() =>
+  import('../pages/SinginPage/SigninPage').then(({ SigninPage }) => ({
+    default: SigninPage,
+  })),
+);
+
+const SignupPage = lazy(() =>
+  import('../pages/SignupPage/SignupPage').then(({ SignupPage }) => ({
+    default: SignupPage,
+  })),
+);
+
+const SearchPage = lazy(() =>
+  import('../pages/SearchPage/SearchPage').then(({ SearchPage }) => ({
+    default: SearchPage,
+  })),
+);
+
+const NotFoundPage = lazy(() =>
+  import('../pages/NotFoundPage/NotFoundPage').then(({ NotFoundPage }) => ({
+    default: NotFoundPage,
+  })),
+);
+const FavoritesPage = lazy(() =>
+  import('../pages/FavoritesPage/FavoritesPage').then(({ FavoritesPage }) => ({
+    default: FavoritesPage,
+  })),
+);
+const HistoryPage = lazy(() =>
+  import('../pages/HistoryPage/HistoryPage').then(({ HistoryPage }) => ({
+    default: HistoryPage,
+  })),
+);
+
+import { FilmPage } from '../pages/FilmPage/FilmPage';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.SIGNUP,
         element: <SignupPage />,
+      },
+      {
+        path: ROUTES.FILM,
+        element: <FilmPage />,
       },
       {
         path: '*',
