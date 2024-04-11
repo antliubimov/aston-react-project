@@ -5,7 +5,7 @@ import './MainPageStyles.css';
 import { Loader } from '../../components/loader/Loader';
 import { fetchSerials } from '../../core/slices/FetchSerials';
 import { stateMovies, stateSerials } from '../../core/selectors/selectors';
-import { SliderSwiperHOC } from '../../components/SliderSwiper/SliderSwiperHOC';
+import { SliderSwiperHOC } from '../../components/sliderSwiper/SliderSwiperHOC';
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();

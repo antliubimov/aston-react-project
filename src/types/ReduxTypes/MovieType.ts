@@ -24,3 +24,11 @@ export interface MovieTypeExtended extends MovieType {
   imdbRating: string;
   BoxOffice: string;
 }
+
+export type FavoriteType = MovieType & {
+  userId: string;
+};
+
+export type FavoriteState = {
+  favorites: FavoriteType[];
+};
