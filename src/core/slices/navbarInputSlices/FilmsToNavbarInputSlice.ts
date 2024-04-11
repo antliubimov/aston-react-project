@@ -33,6 +33,10 @@ export const filmsToNavbarInputSlice = createSlice({
       state.isLoading = false;
       state.errorCode = action.payload;
     },
+    clearFilmsList(state) {
+      state.filmsToNavbarInput = [];
+      state.errorCode = null;
+    },
   },
 });
 
