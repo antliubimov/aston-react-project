@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { FilmPageSlice } from './FilmPageSlice';
 import { MovieTypeExtended } from '../../../types/ReduxTypes/MovieType';
-import { API_URL } from '../../../routes/routes';
+import { API_URL } from '../../../utils/constants/constants';
 
 export const fetchFilmByID = (filmID: string) => async (dispatch: Dispatch) => {
   try {
