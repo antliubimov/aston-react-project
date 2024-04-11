@@ -8,6 +8,7 @@ import { Loader } from '../loader/Loader';
 import { DropDown } from '../dropDown/DropDown';
 import { useDebounce } from '../../core/hooks/useDebounce';
 import { useOutsideClick } from '../../core/hooks/useOutsideClick';
+import { filmsToNavbarInputSlice } from '../../core/slices/navbarInputSlices/FilmsToNavbarInputSlice';
 
 export const NavbarInput = () => {
   const { filmsToNavbarInput, isLoading, errorCode } = useAppSelector(
@@ -21,6 +22,7 @@ export const NavbarInput = () => {
   const debouncedNavbarInputValue = useDebounce(navbarInputValue);
   const dropDownRef = useRef(null);
   const inputRef = useRef(null);
+
   useOutsideClick(dropDownRef, () => setDropDown(false), inputRef);
 
   useEffect(() => {
@@ -33,6 +35,7 @@ export const NavbarInput = () => {
   useEffect(() => {
     if (!navbarInputValue) {
       setDropDown(false);
+      dispatch(filmsToNavbarInputSlice.actions.clearFilmsList());
       return;
     }
     setDropDown(true);
@@ -50,9 +53,10 @@ export const NavbarInput = () => {
     setNavbarInputValue(event.target.value);
   };
 
-  const handleSearchForm = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const gotoSearchForm = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       setDropDown(false);
+      setNavbarInputValue('');
       navigate(ROUTES.SEARCH);
     }
   };
@@ -63,11 +67,11 @@ export const NavbarInput = () => {
         className="form-control me-2"
         type="search"
         placeholder="Поиск"
-        aria-label=""
+        aria-label="search"
         value={navbarInputValue}
         onKeyUp={escapeDropDown}
         onChange={onChangeNavbarInputValue}
-        onKeyDown={handleSearchForm}
+        onKeyDown={gotoSearchForm}
         ref={inputRef}
       />
       <DropDown
@@ -75,10 +79,10 @@ export const NavbarInput = () => {
         setVisible={setDropDown}
         films={filmsToNavbarInput}
         dropDownRef={dropDownRef}
+        setNavbarInputValue={setNavbarInputValue}
       />
-
       {isLoading && <Loader />}
-      {errorCode && <h3 className="error">Фильм не найден</h3>}
+      {errorCode && <h5 className="error">Фильм не найден</h5>}
     </div>
   );
 };

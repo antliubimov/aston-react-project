@@ -12,3 +12,15 @@ export interface MovieType {
   Type: string;
   Poster: string;
 }
+
+export interface MovieTypeExtended extends MovieType {
+  Runtime: string;
+  Genre: string;
+  Director: string;
+  Actors: string;
+  Plot: string;
+  Country: string;
+  Awards: string;
+  imdbRating: string;
+  BoxOffice: string;
+}

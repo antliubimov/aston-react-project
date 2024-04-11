@@ -1,29 +1,32 @@
-import React, { MutableRefObject, SetStateAction } from 'react';
+import React, { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { MovieType } from '../../types/ReduxTypes/MovieType';
 import cl from './DropDown.module.css';
 import { ROUTES } from '../../routes/routes';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-interface DropDownProps {
+type DropDownProps = {
   visible: boolean;
   setVisible: (value: boolean) => void;
   films: MovieType[];
   dropDownRef: MutableRefObject<HTMLDivElement | null>;
-}
+  setNavbarInputValue: Dispatch<SetStateAction<string>>;
+};
 
 export function DropDown({
   visible,
   setVisible,
   films,
   dropDownRef,
+  setNavbarInputValue,
 }: DropDownProps) {
-  const rootClasses = [cl.dropDown, cl.active];
+  const rootClasses = [cl.dropDown];
   if (!visible || !films.length) {
     return null;
   }
 
   const handleItemClick = () => {
     setVisible(false);
+    setNavbarInputValue('');
   };
 
   return (
@@ -31,14 +34,15 @@ export function DropDown({
       <div className={cl.dropDownContent}>
         {films.map((film) => {
           return (
-            <NavLink
+            <Link
+              state={{ id: film.imdbID }}
               onClick={handleItemClick}
               className={cl.dropDownItems}
               key={film.imdbID}
-              to={`${ROUTES.FILM}/:${film.imdbID}`}
+              to={`${ROUTES.FILM}?id=${film.imdbID}`}
             >
               {film.Title}
-            </NavLink>
+            </Link>
           );
         })}
       </div>

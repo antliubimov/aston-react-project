@@ -1,9 +1,5 @@
 import React from 'react';
 
 export const FavoritesPage = () => {
-  return (
-    <div>
-      Favorites
-    </div>
-  );
-}
+  return <div>Favorites</div>;
+};
