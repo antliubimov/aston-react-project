@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { FetchMoviesResponse } from '../../types/ReduxTypes/MovieType';
 import { serialsSlice } from './SerialsSlice';
 import axios from 'axios';
-import { API_URL } from '../../routes/routes';
+import { API_URL } from '../../utils/constants/constants';
 
 export const fetchSerials = () => async (dispatch: Dispatch) => {
   try {

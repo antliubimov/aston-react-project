@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
-import { API_URL } from '../../../routes/routes';
+import { API_URL } from '../../../utils/constants/constants';
 import { filmsToNavbarInputSlice } from './FilmsToNavbarInputSlice';
 import { FetchMoviesResponse } from '../../../types/ReduxTypes/MovieType';
 

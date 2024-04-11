@@ -22,4 +22,5 @@ export type SearchInputProps<T> = {
   setData: React.Dispatch<React.SetStateAction<T>>;
   errors: Film;
   filmRef?: React.Ref<HTMLInputElement> | null;
+  required?: boolean;
 };

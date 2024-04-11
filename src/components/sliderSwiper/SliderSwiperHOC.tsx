@@ -5,7 +5,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './SliderSwiperStyles.css';
 import { MemoizedSliderSwiper } from './SliderSwiper';
-import { HISTORY_KEY } from '../../utils/constants';
+import { HISTORY_KEY } from '../../utils/constants/constants';
 
 type SliderSwiperHOCProps = {
   movies: MovieType[];

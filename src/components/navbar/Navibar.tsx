@@ -40,10 +40,12 @@ export const Navibar = () => {
                   Избранное
                 </NavLink>
               </li>
+              <li>
+                <NavbarInput />
+              </li>
             </>
           )}
         </ul>
-        <NavbarInput />
         <ul className="navbar-nav me-auto mb-2 mb-lg-0 authorization">
           {!user ? (
             <>

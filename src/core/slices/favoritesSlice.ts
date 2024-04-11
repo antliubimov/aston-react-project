@@ -3,11 +3,13 @@ import { FavoriteState, FavoriteType } from '../../types/ReduxTypes/MovieType';
 import { getLocalStorageItem } from '../../utils/helpers/localStorageFns';
 import { FAVORITES } from '../../utils/constants/constants';
 
-const favoritesItems: FavoriteType[] = getLocalStorageItem(FAVORITES) || [];
+const favoritesItems: FavoriteState | null = getLocalStorageItem(FAVORITES);
 
-const initialState: FavoriteState = {
-  favorites: favoritesItems,
-};
+const initialState: FavoriteState = favoritesItems
+  ? favoritesItems
+  : {
+      favorites: [],
+    };
 
 const favoritesSlice = createSlice({
   name: 'favorites',

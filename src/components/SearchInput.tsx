@@ -1,9 +1,18 @@
 import React, { useCallback } from 'react';
 import { Form } from 'react-bootstrap';
-import { SearchInputProps } from '../../types/SearchTypes/searchTypes';
+import { SearchInputProps } from '../types/SearchTypes/searchTypes';
 
 export const SearchInput = <T,>(props: SearchInputProps<T>) => {
-  const { label, name, type, data, setData, errors, filmRef } = props;
+  const {
+    label,
+    name,
+    type,
+    data,
+    setData,
+    errors,
+    filmRef,
+    required = false,
+  } = props;
   const currentName = name as string;
 
   const handleChange = useCallback(
@@ -30,7 +39,7 @@ export const SearchInput = <T,>(props: SearchInputProps<T>) => {
         type={type}
         placeholder={label}
         autoComplete={currentName}
-        required
+        required={required}
       />
       <label htmlFor={currentName}>{label}</label>
       <Form.Control.Feedback type="invalid" tooltip>
