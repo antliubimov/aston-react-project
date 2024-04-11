@@ -12,8 +12,6 @@ import { HistoryPage } from '../pages/HistoryPage/HistoryPage';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { FilmPage } from '../pages/FilmPage/FilmPage';
 
-// в работе
-
 const router = createBrowserRouter([
   {
     path: ROUTES.MAIN,
@@ -34,12 +32,6 @@ const router = createBrowserRouter([
       {
         path: ROUTES.FILM,
         element: <FilmPage />,
-        // children: [
-        //   {
-        //     path: '/:id',
-        //     element: <FilmPage />,
-        //   },
-        // ],
       },
       {
         path: '*',

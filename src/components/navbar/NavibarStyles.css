@@ -17,7 +17,7 @@ input.me-2:focus {
   outline: 2px ridge #c7a35d;
 }
 input.form-control.me-2 {
-  min-width: 240px;
+  min-width: 250px;
 }
 input.me-2::placeholder {
   color: #c7a35d;
@@ -35,4 +35,5 @@ ul.navbar-nav.me-auto.mb-2.mb-lg-0 {
 }
 .navbar_input {
   position: relative;
+  display: flex;
 }

@@ -1,21 +1,17 @@
 .dropDown {
-  display: none;
+  display: flex;
+  width: 250px;
+  height: 220px;
   padding: 10px;
   justify-content: start;
   align-items: baseline;
   border: 1px solid #cdcfd2;
   border-radius: 5px;
   background: #212529;
-  color: #dee2e6;
   box-shadow: 1px 1px 20px #cdcfd2;
   position: absolute;
   top: 50px;
   z-index: 3;
-}
-.dropDown.active {
-  display: flex;
-  width: 250px;
-  height: 220px;
 }
 .dropDownContent {
   display: block;
@@ -35,5 +31,7 @@
 .dropDownItems {
   display: block;
   padding-top: 5px;
+  color: #dee2e6;
+  text-decoration: none;
   cursor: pointer;
 }

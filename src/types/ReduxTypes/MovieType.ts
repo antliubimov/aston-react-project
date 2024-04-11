@@ -13,6 +13,18 @@ export interface MovieType {
   Poster: string;
 }
 
+export interface MovieTypeExtended extends MovieType {
+  Runtime: string;
+  Genre: string;
+  Director: string;
+  Actors: string;
+  Plot: string;
+  Country: string;
+  Awards: string;
+  imdbRating: string;
+  BoxOffice: string;
+}
+
 export type FavoriteType = MovieType & {
   userId: string;
 };
