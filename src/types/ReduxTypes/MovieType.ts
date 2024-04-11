@@ -24,4 +24,15 @@ export type FavoriteState = {
 export type SearchState = {
   searchItems: MovieType[];
   loading: boolean;
-}
+  error: string | undefined;
+  response: string;
+};
+
+export type HistoryType = {
+  id: string;
+  url: string;
+};
+
+export type HistoryState = {
+  history: HistoryType[];
+};

@@ -10,6 +10,8 @@ import { API_URL } from '../../utils/constants/constants';
 const initialState: SearchState = {
   searchItems: [] as MovieType[],
   loading: false,
+  response: 'True',
+  error: undefined,
 };
 
 export const fetchMovies = createAsyncThunk(
@@ -18,7 +20,7 @@ export const fetchMovies = createAsyncThunk(
     const response = await axios.get<FetchMoviesResponse>(
       `${API_URL}&s=${searchString}`,
     );
-    return response.data.Search;
+    return response.data;
   },
 );
 
@@ -36,7 +38,15 @@ const searchSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchMovies.fulfilled, (state, { payload }) => {
-        state.searchItems = payload;
+        if (payload.Response === 'True') {
+          state.searchItems = payload.Search;
+          state.error = undefined;
+          state.response = payload.Response;
+        } else {
+          state.searchItems = [];
+          state.error = payload.Error;
+          state.response = payload.Response;
+        }
       })
       .addCase(fetchMovies.rejected, (state) => {
         state.loading = false;

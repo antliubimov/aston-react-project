@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './HistoryPageStyles.css';
-import { MovieType } from '../../types/ReduxTypes/MovieType';
-import { HISTORY_KEY } from '../../utils/constants/constants';
+import { useAppDispatch, useAppSelector } from '../../core/hooks/hooks';
+import { removeHistory } from '../../core/slices/historySlice';
+import { HistoryType } from '../../types/ReduxTypes/MovieType';
 
 export const HistoryPage = () => {
-  const [historyMoviesArray, setHistoryMoviesArray] = useState<MovieType[]>([]);
-  useEffect(() => {
-    const moviesFromLS = localStorage.getItem(HISTORY_KEY);
-    if (moviesFromLS) {
-      setHistoryMoviesArray(JSON.parse(moviesFromLS));
-    }
-  }, []);
+  const dispatch = useAppDispatch();
+  const { history } = useAppSelector((state) => state.history);
+
+  const handleRemove = (item: HistoryType) => {
+    dispatch(removeHistory(item));
+  };
 
   return (
     <div className="container_history">
       <h4 className="history_title">Вы смотрели:</h4>
-      {historyMoviesArray.map((movie) => (
-        <div key={movie.imdbID} className="history">
-          <img alt="img" src={movie.Poster} className="history_image" />
-          <p>{movie.Title}</p>
-        </div>
-      ))}
+      {history.length > 0 &&
+        history.map(({ id, url }) => (
+          <div key={id} className="history">
+            <a href={url}>{url}</a>
+            <button onClick={() => handleRemove({ id, url })}>Удалить</button>
+          </div>
+        ))}
     </div>
   );
 };

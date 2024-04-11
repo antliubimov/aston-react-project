@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import _ from 'lodash';
 import { useAppSelector, useAppDispatch } from '../../core/hooks/hooks';
 import { Search, Film } from '../../types/SearchTypes/searchTypes';
 import { SearchInput } from '../../components/SearchInput';
@@ -17,6 +18,7 @@ import { MovieType } from '../../types/ReduxTypes/MovieType';
 import { addFavorite } from '../../core/slices/favoritesSlice';
 import { useAuth } from '../../core/hooks';
 import { SearchCard } from '../../components/SearchCard';
+import { addHistory } from '../../core/slices/historySlice';
 
 const initialState: Search = {
   title: '',
@@ -32,7 +34,9 @@ export const SearchPage = () => {
   const [SearchData, setSearchData] = useState<Search>(initialState);
   const filmNameRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { searchItems } = useAppSelector((state) => state.search);
+  const { searchItems, response, error } = useAppSelector(
+    (state) => state.search,
+  );
   const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -62,6 +66,8 @@ export const SearchPage = () => {
       setSearchParams({ movie: title, year: year });
       const searchString = year ? `${title}&y=${year}` : `${title}`;
       dispatch(fetchMovies(searchString));
+      const url = window.location.href;
+      dispatch(addHistory({ id: _.uniqueId(), url }));
     },
     [SearchData, searchItems, fetchMovies],
   );
@@ -97,7 +103,7 @@ export const SearchPage = () => {
           errors={errors}
         />
       </SearchForm>
-      {searchItems.length > 0 && (
+      {response === 'True' ? (
         <ListGroup as="ul" className="d-flex flex-row flex-wrap gap-4">
           {searchItems.map((movie: MovieType) => {
             return (
@@ -107,6 +113,8 @@ export const SearchPage = () => {
             );
           })}
         </ListGroup>
+      ) : (
+        <p>{error}</p>
       )}
     </>
   );
